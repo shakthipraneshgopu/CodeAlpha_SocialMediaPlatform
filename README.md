@@ -146,7 +146,13 @@ The database auto-seeds on first run. No extra setup needed!
 
 ## 📸 Screenshots
 
-> Add screenshots of your running app here before submission.
+<img width="1918" height="905" alt="image" src="https://github.com/user-attachments/assets/0ce38192-73c5-4966-8801-7c099ce5d169" />
+
+<img width="1917" height="902" alt="Screenshot 2026-06-12 013859" src="https://github.com/user-attachments/assets/e4b90387-2d4a-4e01-b619-b35616e1afb2" />
+
+
+<img width="1917" height="902" alt="Screenshot 2026-06-12 014212" src="https://github.com/user-attachments/assets/18b55aeb-4785-4365-9aca-0b13db03765a" />
+
 
 ---
 
