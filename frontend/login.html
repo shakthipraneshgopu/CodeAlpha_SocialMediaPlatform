@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevStream — Sign In</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <div class="auth-page">
+    <div class="auth-card">
+
+      <div class="auth-logo">
+        <div class="auth-logo-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
+          </svg>
+        </div>
+        <h1 class="auth-title">Welcome back</h1>
+        <p class="auth-sub">Sign in to your DevStream account</p>
+      </div>
+
+      <!-- Demo credentials hint -->
+      <div style="background:var(--primary-lt);border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:20px;font-size:.82rem;color:var(--primary)">
+        <strong>Demo:</strong> username <code>alex_tech</code> · password <code>password123</code>
+      </div>
+
+      <div id="form-error" class="form-error mb-16 hidden"></div>
+
+      <div class="form-group">
+        <label class="form-label" for="username">Username</label>
+        <input class="form-input" type="text" id="username" placeholder="your_username" autocomplete="username" autocapitalize="none">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <input class="form-input" type="password" id="password" placeholder="••••••••" autocomplete="current-password">
+      </div>
+
+      <button class="btn btn-primary w-full" id="login-btn" style="margin-top:8px">Sign In</button>
+
+      <div class="auth-divider">Don't have an account? <a href="/register.html" class="auth-link">Create one free</a></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { authAPI, showToast } from '/js/api.js';
+    import { saveAuth, redirectIfAuth } from '/js/auth.js';
+
+    redirectIfAuth();
+
+    const usernameEl = document.getElementById('username');
+    const passwordEl = document.getElementById('password');
+    const loginBtn   = document.getElementById('login-btn');
+    const errorEl    = document.getElementById('form-error');
+
+    function showError(msg) {
+      errorEl.textContent = msg;
+      errorEl.classList.remove('hidden');
+    }
+    function clearError() { errorEl.classList.add('hidden'); }
+
+    async function handleLogin() {
+      clearError();
+      const username = usernameEl.value.trim();
+      const password = passwordEl.value;
+
+      if (!username || !password) { showError('Please enter your username and password.'); return; }
+
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'Signing in…';
+
+      try {
+        const { token, user } = await authAPI.login({ username, password });
+        saveAuth(token, user);
+        showToast('Welcome back, ' + user.name + '!', 'success');
+        setTimeout(() => window.location.href = '/index.html', 600);
+      } catch (err) {
+        showError(err.message);
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'Sign In';
+      }
+    }
+
+    loginBtn.addEventListener('click', handleLogin);
+    passwordEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleLogin(); });
+    usernameEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') passwordEl.focus(); });
+  </script>
+</body>
+</html>

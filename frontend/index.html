@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevStream — Feed</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <nav class="navbar" id="navbar"></nav>
+
+  <main class="page">
+
+    <!-- Login Banner (shown when logged out) -->
+    <div id="login-banner" class="card" style="padding:20px;text-align:center;margin-bottom:16px;">
+      <p style="color:var(--text-2);margin-bottom:12px;">Join DevStream to share posts, like, and comment.</p>
+      <div style="display:flex;gap:10px;justify-content:center;">
+        <a href="/register.html" class="btn btn-primary btn-sm">Create Account</a>
+        <a href="/login.html" class="btn btn-sm" style="border:1.5px solid var(--border);color:var(--text-2);">Sign In</a>
+      </div>
+    </div>
+
+    <!-- Post Composer (shown when logged in) -->
+    <div id="composer" class="composer hidden">
+      <div class="composer-row">
+        <div class="avatar avatar-md" id="composer-avatar" style="background:#6366F1">?</div>
+        <textarea
+          id="post-textarea"
+          class="composer-textarea"
+          placeholder="What's on your mind? Share a thought, tip, or update…"
+          maxlength="500"
+          rows="3"
+        ></textarea>
+      </div>
+      <div class="composer-footer">
+        <span id="char-count" class="char-count">0/500</span>
+        <button id="post-btn" class="btn btn-primary btn-sm" disabled>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+          </svg>
+          Share
+        </button>
+      </div>
+    </div>
+
+    <!-- Feed -->
+    <div id="feed"></div>
+
+  </main>
+
+  <script type="module" src="/js/feed.js"></script>
+</body>
+</html>
